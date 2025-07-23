@@ -294,7 +294,7 @@ def heart(request):
 
 
 # API Key
-API_KEY = 'AIzaSyCjGOZDU_aFKy4OuxHMxYQdPqy_y_n-BaI'
+API_KEY = 'Your_API_Key'
 
 # Configure the Gemini API
 ai.configure(api_key=API_KEY)
