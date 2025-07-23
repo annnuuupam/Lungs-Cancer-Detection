@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1a1a1a, #3b3d3d);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #000;
+            color: #0ff;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.6);
+            margin-bottom: 20px;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: floatingHeader 15s infinite alternate;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.6);
+        }
+
+        @keyframes floatingHeader {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        .container {
+            flex: 1;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #222, #444);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: formGlow 3s infinite alternate;
+        }
+
+        @keyframes formGlow {
+            0% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
+            }
+        }
+
+        form::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatingForm 10s infinite alternate;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+        }
+
+        @keyframes floatingForm {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        form * {
+            position: relative;
+            z-index: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #0ff;
+            font-size: 18px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #0ff;
+            border-radius: 4px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        select {
+            background: rgba(255, 255, 255, 0.1); /* Ensures light background */
+            color: #fff; /* Ensures the text is visible */
+        }
+
+        select option {
+            background-color: #333; /* Dark background for the options */
+            color: #fff; /* White text for options */
+        }
+
+        input::placeholder,
+        select::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #00f;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+            outline: none;
+            transform: scale(1.02);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            background: linear-gradient(45deg, #0ff, #00f);
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button[type="submit"]:hover {
+            background: linear-gradient(45deg, #00f, #0ff);
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #000;
+            color: #0ff;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 255, 255, 0.3);
+            z-index: 1;
+        }
+
+        .alert {
+            background: rgba(0, 255, 255, 0.2);
+            color: #0ff;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.6);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Lung Cancer Prediction</h1>
+    </header>
+
+    <div class="container">
+        <form method="POST" class="mt-4">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="age">Age</label>
+                    <input type="number" class="form-control" name="age" id="age" placeholder="Enter your age" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="smoking_history">Smoking History</label>
+                    <select class="form-control" name="smoking_history" id="smoking_history" required>
+                        <option value="0">No Smoking</option>
+                        <option value="1">Past Smoker</option>
+                        <option value="2">Active Smoker</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="alcohol_use">Alcohol Use</label>
+                    <select class="form-control" name="alcohol_use" id="alcohol_use" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="coughing_duration">Cough Duration (weeks)</label>
+                    <input type="number" class="form-control" name="coughing_duration" id="coughing_duration" placeholder="Enter weeks" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="breathlessness">Breathlessness</label>
+                    <select class="form-control" name="breathlessness" id="breathlessness" required>
+                        <option value="0">No</option>
+                        <option value="1">Mild</option>
+                        <option value="2">Severe</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="chest_pain">Chest Pain</label>
+                    <select class="form-control" name="chest_pain" id="chest_pain" required>
+                        <option value="0">No</option>
+                        <option value="1">Yes</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="fatigue">Fatigue</label>
+                <select class="form-control" name="fatigue" id="fatigue" required>
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-success btn-block">Predict</button>
+        </form>
+
+        {% if prediction %}
+            <div class="alert mt-4">{{ prediction }}</div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Lung Cancer Prediction. All rights reserved.</p>
+    </footer>
+</body>
+
+</html>

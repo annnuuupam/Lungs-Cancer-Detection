@@ -1,0 +1,315 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lungs cancer prediction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background-image: linear-gradient(rgb(216, 213, 213), rgb(108, 99, 99));
+      font-family: 'Roboto', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+      padding-bottom: 60px; /* Add space for the footer */
+      position: relative; /* Ensure relative positioning for absolute elements */
+      overflow: hidden; /* Ensure no overflow of floating elements */
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 10px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      position: relative;
+      z-index: 10;
+      animation: headerGlow 1.5s infinite alternate;
+    }
+
+    @keyframes headerGlow {
+      from {
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.5), 0 0 10px rgba(0, 255, 255, 0.5), 0 0 15px rgba(0, 255, 255, 0.5);
+      }
+      to {
+        text-shadow: 0 0 10px rgba(0, 255, 255, 1), 0 0 20px rgba(0, 255, 255, 1), 0 0 30px rgba(0, 255, 255, 1);
+      }
+    }
+
+    section {
+      display: flex;
+      flex-wrap: wrap; /* Allow wrapping for responsiveness */
+      justify-content: center; /* Center cards horizontally */
+      margin: 20px;
+      gap: 140px; /* Increase space between cards */
+      position: relative; /* Ensure relative positioning for correct z-index stacking */
+    }
+
+    .card {
+      background-image: url("{% static 'img/p1.jpg' %}");
+      background-repeat: no-repeat;
+      background-size: cover;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 20px;
+      width: 300px; /* Fixed width for horizontal alignment */
+      height: 200px; /* Increased height for better content visibility */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s, box-shadow 0.3s, filter 0.3s, background 0.3s;
+      opacity: 0.9;
+      position: relative;
+      overflow: hidden;
+      animation: cardFadeIn 1s ease-out;
+      z-index: 2; /* Ensure cards are above floating elements */
+    }
+
+    @keyframes cardFadeIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 0.9;
+      }
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: opacity 0.3s;
+      opacity: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .card:hover::before {
+      opacity: 1;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .card:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+      filter: brightness(1.2) contrast(1.2);
+      background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url("{% static 'img/p1.jpg' %}");
+      background-size: cover;
+    }
+
+    h2 {
+      color: #711717;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5em;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+      z-index: 2;
+      position: relative;
+    }
+
+    p {
+      color: #dddddd;
+      font-size: 1.1em;
+      line-height: 1.6;
+      z-index: 2;
+      position: relative;
+    }
+
+    footer {
+      background-color: #222;
+      color: #fff;
+      padding:0px;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+      animation: footerGlow 2s infinite alternate;
+    }
+
+    @keyframes footerGlow {
+      from {
+        background-color: #222;
+        text-shadow: 0 0 5px rgba(255, 0, 0, 0.5), 0 0 10px rgba(255, 0, 0, 0.5), 0 0 15px rgba(255, 0, 0, 0.5);
+      }
+      to {
+        background-color: #333;
+        text-shadow: 0 0 10px rgba(255, 0, 0, 1), 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 0, 0, 1);
+      }
+    }
+
+    .auth-buttons {
+      text-align: center;
+      margin: 60px 0;
+    }
+
+    .auth-buttons a {
+      text-decoration: none;
+      color: #ffffff; /* White color for text */
+      background: linear-gradient(45deg, #3b3b6d, #6e00ff); /* Robotic gradient color */
+      padding: 12px 20px;
+      border-radius: 8px; /* Slightly larger radius for a more modern look */
+      margin: 0 10px;
+      font-size: 1.1em;
+      font-weight: bold;
+      transition: all 0.3s ease; /* Smooth transition for all properties */
+      display: inline-block;
+      position: relative;
+      overflow: hidden; /* Ensure the box-shadow effect stays within the button */
+    }
+
+    .auth-buttons a::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300%;
+      height: 300%;
+      background: radial-gradient(circle, rgba(255,255,255,0.2) 20%, rgba(255,255,255,0) 80%);
+      transition: transform 0.6s ease;
+      transform: translate(-50%, -50%) scale(0);
+      border-radius: 50%;
+      z-index: 0; /* Behind the button text */
+    }
+
+    .auth-buttons a:hover::before {
+      transform: translate(-50%, -50%) scale(1);
+    }
+
+    .auth-buttons a:hover {
+      background: linear-gradient(45deg, #5a2d81, #9e00ff); /* Darker gradient on hover */
+      color: #fff; /* Ensure text remains white */
+      transform: translateY(-5px) scale(1.05); /* Slightly larger scale on hover */
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Enhanced shadow for better depth */
+    }
+
+    .auth-buttons a:active {
+      transform: translateY(2px) scale(0.98); /* Slightly smaller scale and down movement when active */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Reduced shadow when active */
+    }
+
+    #p {
+      color: #390f60; /* Tomato color for a vibrant look */
+      font-family: 'Arial', sans-serif; /* Modern, clean font */
+      font-weight: bold;
+      font-size: 16px; /* Adjust the font size as needed */
+      line-height: 1.5; /* Improve readability */
+      text-align: center; /* Center-align the text */
+    }
+
+    /* Floating Bubbles and Shapes */
+    .bubble, .square {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.6;
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .bubble {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 70%);
+      animation: float 8s ease-in-out infinite;
+    }
+
+    .square {
+      width: 100px;
+      height: 100px;
+      background: rgba(255, 255, 255, 0.4);
+      animation: float 10s ease-in-out infinite;
+    }
+
+    .bubble:nth-child(1) {
+      top: 10%;
+      animation-duration: 10s;
+      animation-delay: 0s;
+    }
+
+    .bubble:nth-child(2) {
+      top: 30%;
+      animation-duration: 12s;
+      animation-delay: 2s;
+    }
+
+    .bubble:nth-child(3) {
+      top: 50%;
+      animation-duration: 14s;
+      animation-delay: 4s;
+    }
+
+    .square:nth-child(4) {
+      top: 20%;
+      animation-duration: 16s;
+      animation-delay: 6s;
+    }
+
+    .square:nth-child(5) {
+      top: 60%;
+      animation-duration: 18s;
+      animation-delay: 8s;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0);
+      }
+      50% {
+        transform: translateY(-30px) translateX(30px);
+      }
+      100% {
+        transform: translateY(0) translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Lungs Cancer Prediction Platform</h1>
+    <p>Accurate Predictions, Early Detection</p>
+  </header>
+
+  <section>
+    <div class="card">
+      <h2>Know Your Health</h2>
+      <p id="p">Get an early diagnosis by predicting lung cancer using various tests and tools.</p>
+    </div>
+
+    <div class="card">
+      <h2>Instant Results</h2>
+      <p id="p">Receive immediate results and understand your risk levels with actionable insights.</p>
+    </div>
+  </section>
+
+  <div class="auth-buttons">
+    <a href="{% url 'user:login' %}">Login</a>
+    <a href="{% url 'user:signup' %}">Sign Up</a>
+  </div>
+
+  <footer>
+    <p>&copy; 2024 Lungs Cancer Prediction Platform.</p>
+  </footer>
+
+  <!-- Floating animated elements -->
+  <div class="bubble" style="top: 10%; left: 10%;"></div>
+  <div class="bubble" style="top: 30%; left: 30%;"></div>
+  <div class="bubble" style="top: 50%; left: 50%;"></div>
+
+  <div class="square" style="top: 20%; left: 40%;"></div>
+  <div class="square" style="top: 60%; left: 70%;"></div>
+  <div class="bubble" style="top: 10%; left: 10%;"></div>
+  <div class="bubble" style="top: 30%; left: 30%;"></div>
+  <div class="bubble" style="top: 50%; left: 50%;"></div>
+
+  <div class="square" style="top: 20%; left: 40%;"></div>
+  <div class="square" style="top: 60%; left: 70%;"></div>
+</body>
+
+</html>

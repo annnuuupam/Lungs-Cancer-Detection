@@ -1,0 +1,239 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <style>
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: radial-gradient(circle, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 100%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            color: #e0e0e0;
+            overflow: hidden;
+            position: relative;
+            animation: bodyBackground 15s linear infinite;
+        }
+
+        @keyframes bodyBackground {
+            0% { background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.7) 80%); }
+            50% { background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(0, 0, 0, 0.6) 80%); }
+            100% { background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.7) 80%); }
+        }
+
+        .card {
+            background: linear-gradient(145deg, #1e1e1e, #2b2b2b);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            color: #e0e0e0;
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+            transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+            animation: cardFadeIn 1s ease-out, cardGlow 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes cardFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes cardGlow {
+            0% {
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                background: linear-gradient(145deg, #1e1e1e, #2b2b2b);
+            }
+            100% {
+                box-shadow: 0 8px 16px rgba(0, 255, 255, 0.5);
+                background: linear-gradient(145deg, #2b2b2b, #1e1e1e);
+            }
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 255, 255, 0.4);
+        }
+
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 36px;
+            color: #4caf50;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+            font-weight: 700;
+            animation: slideInFromTop 1s ease-out, textGlow 1.5s infinite alternate;
+        }
+
+        @keyframes slideInFromTop {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes textGlow {
+            0% {
+                text-shadow: 0 0 5px #4caf50, 0 0 10px #4caf50, 0 0 15px #4caf50, 0 0 20px #4caf50;
+            }
+            100% {
+                text-shadow: 0 0 10px #4caf50, 0 0 20px #4caf50, 0 0 30px #4caf50, 0 0 40px #4caf50;
+            }
+        }
+
+        h1::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 5px;
+            background: linear-gradient(to right, #4caf50, #81c784);
+            position: absolute;
+            left: 50%;
+            bottom: -15px;
+            transform: translateX(-50%);
+            border-radius: 3px;
+            animation: underlineAnimation 1s ease-out;
+        }
+
+        @keyframes underlineAnimation {
+            from {
+                width: 0;
+            }
+            to {
+                width: 80px;
+            }
+        }
+
+        h2 {
+            font-size: 24px;
+            margin: 15px 0;
+            color: #e0e0e0;
+            transition: color 0.3s, transform 0.3s;
+            position: relative;
+            font-weight: 500;
+            padding-left: 35px;
+        }
+
+        h2::before {
+            content: "";
+            display: block;
+            width: 6px;
+            height: 100%;
+            background: #4caf50;
+            position: absolute;
+            left: 0;
+            top: 0;
+            border-radius: 3px;
+            transition: background 0.3s;
+        }
+
+        h2:hover {
+            color: #4caf50;
+            transform: translateX(8px);
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 24px;
+            background-color: #4caf50;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        a::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            transition: width 0.3s;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+        }
+
+        a:hover::after {
+            width: 100%;
+        }
+
+        a:hover {
+            background-color: #388e3c;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 255, 255, 0.4);
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            h2 {
+                font-size: 20px;
+            }
+
+            a {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        {% if not profile_data %}
+            <h1>Profile Not Updated</h1>
+            <a href="{% url 'user:profile' %}">Update Profile</a>
+        {% else %}
+            <h1>Profile Updated</h1>
+        {% endif %}
+
+        {% for ele in user_data %}
+            <h2>Name: {{ ele.name }}</h2>
+        {% endfor %}
+        
+        {% for ele in profile_data %}
+            <h2>Father's Name: {{ ele.fathers_name }}</h2>
+            <h2>Mother's Name: {{ ele.mothers_name }}</h2>
+            <h2>Phone: {{ ele.phone }}</h2>
+            <h2>Email: {{ ele.email }}</h2>
+            <h2>Address: {{ ele.address }}</h2>
+        {% endfor %}
+    </div>
+</body>
+</html>

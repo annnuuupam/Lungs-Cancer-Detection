@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Coffee</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1c1c1c, #282828);
+            color: #e0e0e0;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: #2e2e2e;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, rgba(0, 255, 255, 0.1), transparent);
+            z-index: 0;
+            transform: rotate(-30deg);
+            animation: moveBackground 10s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% {
+                transform: rotate(-30deg) translateX(0) translateY(0);
+            }
+            100% {
+                transform: rotate(-30deg) translateX(-100%) translateY(-100%);
+            }
+        }
+
+        h2 {
+            color: #00eaff;
+            text-align: center;
+            font-size: 2.5em;
+            margin: 0 0 20px;
+            z-index: 1;
+            position: relative;
+            font-family: 'Arial', sans-serif;
+            text-shadow: 0 4px 6px rgba(0, 255, 255, 0.4), 0 1px 3px rgba(0, 255, 255, 0.6);
+        }
+
+        form {
+            z-index: 1;
+            position: relative;
+            background: rgba(50, 50, 50, 0.8);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background: #444;
+            color: #fff;
+            font-size: 1em;
+            transition: background 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]::placeholder,
+        input[type="number"]::placeholder {
+            color: #888;
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus {
+            background: #555;
+            box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #00eaff;
+            border: none;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s;
+            transform: translate(-50%, -50%) scale(0);
+            border-radius: 50%;
+            z-index: 0;
+        }
+
+        button:hover::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        button:hover {
+            background: #00bcd4;
+            transform: translateY(-2px);
+        }
+
+        input, button {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Support us</h2>
+        <form method="post" action="{% url 'user:pay' %}">
+            {% csrf_token %}
+            <div>
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" placeholder="Enter your name" required>
+            </div>
+            <div>
+                <label for="amount">Amount:</label>
+                <input type="number" name="amount" id="amount" placeholder="Enter amount" required>
+            </div>
+            <button type="submit">Pay</button>
+        </form>
+    </div>
+</body>
+</html>

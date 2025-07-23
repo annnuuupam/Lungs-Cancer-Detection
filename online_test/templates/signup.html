@@ -1,0 +1,250 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sign Up Page</title>
+
+  <!-- Link to external stylesheets and fonts -->
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/alphardex/aqua.css@master/dist/aqua.min.css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap">
+
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-image: url("{% static 'img/4.jpg' %}"); /* Background image */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+      position: relative; /* Make sure the body is the relative container */
+    }
+
+    .signup-container {
+      background-color: rgba(17, 84, 115, 0.2); /* Background color */
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      font-size: larger;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.8s forwards;
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    h1 {
+      text-align: center;
+      color: #fff; /* Text color */
+      margin-bottom: 20px;
+      font-size: 2.5em;
+      font-weight: bold;
+      position: relative;
+      font-family: 'Orbitron', sans-serif; /* Robotic font */
+      background: linear-gradient(135deg, #9a0505, #2469ad); /* Gradient */
+      -webkit-background-clip: text; /* Clip the background to the text */
+      -webkit-text-fill-color: transparent; /* Transparent text color */
+      text-shadow: 4px 4px 8px rgba(16, 16, 16, 0.9), 0 1px 5px rgba(0, 0, 0, 0.5); /* Text shadow */
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      color: #fff; /* Label color */
+      font-size: 1.1em;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s, box-shadow 0.3s, background-color 0.3s;
+      color: #333;
+      font-size: 1em;
+      background-color: #fff;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    input:focus {
+      border-color: #4caf50;
+      box-shadow: 0 0 8px rgba(76, 175, 80, 0.3);
+      outline: none;
+      background-color: #e8f5e9; /* Light green background on focus */
+    }
+
+    input:hover {
+      border-color: #4caf50;
+      background-color: #f1f8e9; /* Slightly darker light green background on hover */
+    }
+
+    button {
+      background-color: #26286d;
+      color: #fff;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1.1em;
+      transition: background-color 0.3s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    button::before {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, #00fffc, transparent);
+      transform: translateX(-100%);
+      transition: 0.6s;
+    }
+
+    button:hover::before {
+      transform: translateX(100%);
+    }
+
+    button:hover {
+      background: transparent;
+      box-shadow: 0 0 20px 10px rgba(23, 202, 229, 0.5);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    a {
+      color: #af4ca8;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -50px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+      animation: float 6s infinite;
+      opacity: 0.6;
+      width: 40px;
+      height: 40px;
+    }
+
+    .bubble:nth-child(2) {
+      background: rgba(255, 255, 255, 0.4);
+      animation-duration: 8s;
+      width: 60px;
+      height: 60px;
+    }
+
+    .bubble:nth-child(3) {
+      background: rgba(255, 255, 255, 0.5);
+      animation-duration: 10s;
+      width: 80px;
+      height: 80px;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+      }
+      50% {
+        transform: translateY(-100vh) scale(1.2);
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(0) scale(1);
+        opacity: 0.6;
+      }
+    }
+
+    .square {
+      position: absolute;
+      bottom: -50px;
+      background: rgba(255, 255, 255, 0.3);
+      pointer-events: none;
+      animation: float 6s infinite;
+      opacity: 0.6;
+      width: 40px;
+      height: 40px;
+      transform: rotate(45deg);
+    }
+
+    .square:nth-child(4) {
+      background: rgba(255, 255, 255, 0.4);
+      animation-duration: 8s;
+      width: 60px;
+      height: 60px;
+    }
+    
+
+    .square:nth-child(5) {
+      background: rgba(255, 255, 255, 0.5);
+      animation-duration: 10s;
+      width: 80px;
+      height: 80px;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-container">
+    <h1>Sign Up</h1>
+    <p>{{ msg }}</p>
+    <form method="post" action="{% url 'user:store_user' %}">
+      {% csrf_token %}
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" placeholder="Enter your username" required />
+
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" placeholder="Enter your password" required />
+
+      <button type="submit" value="submit">Sign Up</button>
+    </form>
+    <p><a href="{% url 'user:login' %}"><button type="button">Login</button></a></p>
+  </div>
+
+  <!-- Floating animated elements -->
+  <div class="bubble" style="left: 10%;"></div>
+  <div class="bubble" style="left: 50%;"></div>
+  <div class="bubble" style="left: 80%;"></div>
+
+  <div class="square" style="left: 20%;"></div>
+  <div class="square" style="left: 40%;"></div>
+  <div class="square" style="left: 70%;"></div>
+</body>
+</html>

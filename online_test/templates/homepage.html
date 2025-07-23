@@ -1,0 +1,413 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project</title>
+
+  <!-- External Stylesheets and Fonts -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <style>
+/* General Styles */
+body {
+      background: radial-gradient(circle, #2c3e50, #000);
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    .navbar-brand {
+      font-size: 36px;
+      font-weight: bold;
+      color: #ffffff !important;
+      transition: color 0.3s;
+    }
+
+    .navbar-brand:hover {
+      color: #4caf50;
+    }
+
+    .navbar-nav .nav-link {
+      font-size: 16px;
+      color: #f0f0f0;
+      margin-right: 15px;
+      transition: color 0.3s, transform 0.3s;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #4caf50;
+      transform: scale(1.1);
+    }
+
+    .dropdown-menu {
+      background-color: #333;
+      border: none;
+    }
+
+    .dropdown-menu .dropdown-item {
+      color: #4caf50;
+      font-size: 20px;
+      transition: background-color 0.3s, transform 0.3s;
+    }
+
+    .dropdown-menu .dropdown-item:hover {
+      background-color: #4caf50;
+      transform: translateX(5px);
+    }
+
+    /* Hero Section */
+    #container {
+      text-align: center;
+      padding: 200px 50px;
+      /* background-image: url('static\images\hero.jpg'); Replace with the actual path to your image */
+      background-size: cover; /* Ensures the image covers the entire div */
+      background-position: center; /* Centers the image */
+      background-repeat: no-repeat; /* Prevents the image from repeating */
+      border-radius: 15px; /* Optional: Adds rounded corners */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Optional: Adds a shadow for better visibility */
+      color: #ffffff; /* Ensures text remains readable */
+    }
+
+    #container h1 {
+      font-size: 50px;
+      font-weight: bold;
+      color: #4caf50;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7); /* Optional: Adds text shadow for better visibility */
+    }
+
+    #container h2 {
+      font-size: 25px;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7); /* Optional: Adds text shadow for better visibility */
+    }
+    /* Intro Section Styles */
+.intro {
+  background-color: #f8f9fa; /* Light background for contrast */
+  color: #333; /* Default font color */
+  padding: 60px 20px; /* Section padding */
+}
+
+.intro-feature {
+  text-align: center; /* Center-align content */
+  margin-bottom: 30px; /* Spacing between features */
+}
+
+.intro-icon {
+  font-size: 50px; /* Icon size */
+  color: #4caf50; /* Icon color */
+  margin-bottom: 20px; /* Space below the icon */
+}
+
+.intro-content h5 {
+  font-size: 22px; /* Font size for headings */
+  font-weight: bold; /* Make headings bold */
+  color: #4caf50; /* Heading color */
+  margin-bottom: 10px; /* Space below the heading */
+}
+
+.intro-content p {
+  font-size: 16px; /* Font size for paragraphs */
+  color: #666; /* Paragraph text color */
+  line-height: 1.8; /* Improve readability */
+}
+
+
+    /* Profile Card */
+    .card {
+      background: linear-gradient(145deg, #1e90ff, #00bfff);
+      border: none;
+      border-radius: 20px;
+      color: #fff;
+      padding: 25px;
+      margin: 20px auto;
+      max-width: 500px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      transition: transform 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .card h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    /* Additional Information Section */
+    .card1 {
+      background: rgba(255,255,255,0);
+      border: none;
+      border-radius: 0;
+      padding: 40px;
+      color: #ffffff;
+      width: 100vw;
+      height: 50vh;
+      box-shadow: none;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card1 p {
+      font-size: 18px;
+      line-height: 1.8;
+      color: #ffffff;
+      margin: 0 20px;
+      text-align: justify;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #000;
+      color: #4caf50;
+      font-size: 14px;
+    }
+
+    /* Decorative Squares */
+    .square {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+      z-index: -1;
+      animation: moveSquare 10s linear infinite;
+    }
+
+    .square:nth-child(1) {
+      top: 20%;
+      left: 10%;
+      width: 100px;
+      height: 100px;
+      animation-duration: 15s;
+    }
+
+    .square:nth-child(2) {
+      top: 40%;
+      right: 15%;
+      width: 80px;
+      height: 80px;
+      animation-duration: 12s;
+    }
+
+    .square:nth-child(3) {
+      bottom: 10%;
+      left: 20%;
+      width: 120px;
+      height: 120px;
+      animation-duration: 18s;
+    }
+
+    .square:nth-child(4) {
+      bottom: 30%;
+      right: 25%;
+      width: 90px;
+      height: 90px;
+      animation-duration: 14s;
+    }
+
+    .square:nth-child(5) {
+      top: 5%;
+      right: 5%;
+      width: 70px;
+      height: 70px;
+      animation-duration: 10s;
+    }
+
+    .square:nth-child(6) {
+      bottom: 15%;
+      left: 5%;
+      width: 50px;
+      height: 50px;
+      animation-duration: 8s;
+    }
+
+    /* Moving Squares Animation */
+    @keyframes moveSquare {
+      0% {
+        transform: translate(0px, 0px) rotate(0deg);
+      }
+      50% {
+        transform: translate(30px, -30px) rotate(45deg);
+      }
+      100% {
+        transform: translate(0px, 0px) rotate(0deg);
+      }
+    }
+
+    /*button*/
+.btn-support {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: linear-gradient(45deg, #4CAF50, #81C784); /* Green shades for health and positivity */
+  border: none;
+  color: #ffffff;
+  padding: 15px 30px;
+  border-radius: 8px;
+  cursor: pointer;
+  outline: none;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.btn-support:hover {
+  background: linear-gradient(45deg, #81C784, #4CAF50); /* Inverted gradient for hover effect */
+  transform: scale(1.1);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.btn-support:focus {
+  outline: none;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.btn-support:active {
+  animation: pulse 0.5s ease;
+}
+
+
+    
+
+  </style>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  
+    <!-- Decorative Squares -->
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+  
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Lung Cancer Detection System</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user:aboutUs' %}">About Us</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user:view_profile' %}">View Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user:profile' %}">Update Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user:heart' %}">Predict With Data</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user:index' %}">Predict With X-Ray</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user:ChatBot' %}">ChatBot Support</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'user:logout' %}">Logout</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  <!-- Content -->
+<div id="container" style="background-image: url('{% static "images/hero.jpg" %}');">
+  <h1>Detect Early - Act Early</h1>
+  <p>Check Your Lungs' Health:</p>
+  <a class="btn-support" href="{% url 'user:pay' %}">Click Here To Support Us</a>
+</div>
+<section class="intro section-padding">
+  <div class="container">
+      <div class="row">
+          <div class="col-md-4 intro-feature">
+              <div class="intro-icon">
+                  <span data-icon="&#xe033;" class="icon"></span>
+              </div>
+              <div class="intro-content">
+                  <h5>Advanced Image Analysis</h5>
+                  <p>Utilize cutting-edge machine learning algorithms to analyze X-ray images, ensuring accurate and early detection of lung cancer.</p>
+                  <a class="btn-support" href="{% url 'user:index' %}">Predict</a>
+              </div>
+          </div>
+          <div class="col-md-4 intro-feature">
+              <div class="intro-icon">
+                  <span data-icon="&#xe030;" class="icon"></span>
+              </div>
+              <div class="intro-content">
+                  <h5>Symptom-Based Predictions</h5>
+                  <p>Input your symptoms to receive reliable predictions based on data-driven insights, providing a comprehensive diagnostic approach.</p>
+                  <a class="btn-support" href="{% url 'user:heart' %}">Predict</a>
+              </div>
+          </div>
+          <div class="col-md-4 intro-feature">
+              <div class="intro-icon">
+                  <span data-icon="&#xe046;" class="icon"></span>
+              </div>
+              <div class="intro-content last">
+                  <h5>Interactive Chatbot</h5>
+                  <p>Get personalized advice and preventive measures through our intelligent chatbot, ensuring guidance throughout your health journey.</p>
+                  <a class="btn-support" href="{% url 'user:ChatBot' %}">Chat</a>
+              </div>
+          </div>
+      </div>
+  </div>
+</section>
+    <div class="card1" style="background-image: url('{% static "images\testimonials-bg.jpg" %}');">
+      <main>
+        <p>Welcome to the Lung Cancer Detection System, where we aim to provide a seamless and efficient platform for early diagnosis and assistance in lung cancer detection. Our mission is to empower users with reliable and accessible tools for accurate predictions and guidance.</p>
+      
+        <p>With cutting-edge machine learning algorithms and a user-centric design, our system revolutionizes the way lung cancer is detected and managed. Our platform offers features such as X-ray image analysis, symptom-based predictions, and an interactive chatbot for medication advice and preventive measures, ensuring a comprehensive healthcare experience.</p>
+      
+        <p>Whether you are a patient, a healthcare provider, or a researcher, our Lung Cancer Detection System is designed to meet your diagnostic and informational needs. We believe in the power of technology to transform lives and are dedicated to contributing to early detection and improved patient outcomes through our innovative platform.</p>
+      </main>
+      
+    </div>
+  
+    <footer>
+      &copy; 2024 Online Testing System. All rights reserved.
+    </footer>
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

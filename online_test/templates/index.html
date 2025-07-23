@@ -1,0 +1,167 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lung Cancer Prediction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-image: url("{% static 'img/4.jpg' %}");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            overflow: hidden;
+        }
+
+        /* Adding an overlay to reduce background visibility */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5); /* Darker overlay for a more "high-tech" feel */
+            z-index: -1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Container for buttons and input */
+        .control-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.6); /* Dark background for control section */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        button {
+            margin: 15px 0;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        button:disabled {
+            background: #cccccc;
+            cursor: not-allowed;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        input[type="file"] {
+            margin: 15px 0;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 8px;
+            border: 2px solid #ccc;
+            cursor: pointer;
+        }
+
+        #output {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #2e3d46;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            color: lightblue;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lung Cancer Prediction App</h1>
+    
+    <div class="control-container">
+        <!-- Import Data Button -->
+        <input type="file" id="fileInput" />
+        <button onclick="importData()">Import Data</button>
+
+        <!-- Train Model Button -->
+        <button id="trainBtn" onclick="trainModel()" disabled>Train Model</button>
+
+        <!-- Predict Button -->
+        <button id="predictBtn" onclick="predict()" disabled>Prediction</button>
+    </div>
+
+    <!-- Output Result -->
+    <div id="output">Prediction Result Will Appear Here</div>
+
+    <script>
+        function importData() {
+            const fileInput = document.getElementById('fileInput');
+            if (!fileInput.files.length) {
+                alert('Please select a file.');
+                return;
+            }
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            fetch('/import_data/', {
+                method: 'POST',
+                body: formData,
+                headers: { 'X-CSRFToken': '{{ csrf_token }}' }
+            }).then(response => response.json())
+              .then(data => {
+                alert(data.message);
+                document.getElementById('trainBtn').disabled = false;
+              });
+        }
+
+        function trainModel() {
+            fetch('/train_model/')
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message + `\nAccuracy: ${data.accuracy}\nPrecision: ${data.precision}\nRecall: ${data.recall}`);
+                    document.getElementById('predictBtn').disabled = false;
+                });
+        }
+
+        function predict() {
+            fetch('/predict_model/')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('output').innerText = data.prediction;
+                });
+        }
+    </script>
+</body>
+</html>

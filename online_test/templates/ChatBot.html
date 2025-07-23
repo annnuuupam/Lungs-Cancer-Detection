@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lungs Cancer Prediction ChatBot Support</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #121212, #3f3f3f);
+            color: #fff;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #000;
+            color: #00ffb3;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            z-index: 10;
+            font-size: 2.5em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: bold;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.5);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 350px;
+            height: 350px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatingHeader 10s infinite alternate;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 80px rgba(0, 255, 255, 0.6);
+        }
+
+        @keyframes floatingHeader {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.15);
+            }
+        }
+
+        main {
+            flex: 1;
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #chat-box {
+            width: 100%;
+            height: 100%;
+            border: 2px solid #00ffb3;
+            padding: 15px;
+            background-color: rgba(255, 255, 255, 0.05);
+            overflow-y: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 255, 255, 0.5);
+            backdrop-filter: blur(5px);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            font-size: 1.2em;
+        }
+
+        #user-input {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            border: 2px solid #00ffb3;
+            background: rgba(0, 0, 0, 0.2);  /* Darker background for better contrast */
+            color: #fff;  /* White text */
+            font-size: 18px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.6);
+        }
+
+        #user-input:focus {
+            border-color: #00f;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+            outline: none;
+        }
+
+        #send-button {
+            padding: 12px 30px;
+            background-color: #00ffb3;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            margin-top: 15px;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 1.2em;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #1e1e1e;  /* Darker background for user message */
+            text-align: right;
+            color: #00ffb3;  /* White text for user message */
+            box-shadow: 0 4px 12px rgba(0, 255, 255, 0.5);
+        }
+
+        .bot-message {
+            background-color: #333;
+            color: #00ffb3;
+            box-shadow: 0 4px 12px rgba(0, 255, 255, 0.5);
+        }
+
+        footer {
+            background-color: #000;
+            color: #00ffb3;
+            text-align: center;
+            padding: 15px 0;
+            position: relative;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 255, 255, 0.3);
+            z-index: 1;
+            font-size: 1.1em;
+        }
+
+        .floating-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 500px;
+            height: 500px;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatingBackground 8s infinite alternate;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 150px rgba(0, 255, 255, 0.5);
+        }
+
+        @keyframes floatingBackground {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        Lungs Cancer Prediction ChatBot Support
+    </header>
+
+    <main>
+        <div id="chat-box">
+            <div class="bot-message message">Hello! I'm here to assist you with Lung Cancer predictions. How can I help?</div>
+        </div>
+
+        <input type="text" id="user-input" placeholder="Type your message here...">
+        <button id="send-button">Send</button>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Lungs Cancer Prediction ChatBot Support</p>
+    </footer>
+
+    <script>
+        const chatBox = document.getElementById("chat-box");
+        const userInput = document.getElementById("user-input");
+        const sendButton = document.getElementById("send-button");
+
+        sendButton.addEventListener("click", function () {
+            const message = userInput.value;
+            if (message.trim() !== "") {
+                // Display the user's message in the chat
+                const userMessage = document.createElement('div');
+                userMessage.classList.add('user-message', 'message');
+                userMessage.textContent = message;
+                chatBox.appendChild(userMessage);
+                userInput.value = "";
+
+                // Send the message to the server
+                fetch("{% url 'user:ChatBot' %}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                        "Content-Type": "application/x-www-form-urlencoded"
+                    },
+                    body: `user_input=${encodeURIComponent(message)}`
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Display the bot's response in the chat
+                        const botMessage = document.createElement('div');
+                        botMessage.classList.add('bot-message', 'message');
+                        botMessage.textContent = data.response;
+                        chatBox.appendChild(botMessage);
+                        chatBox.scrollTop = chatBox.scrollHeight; // Scroll to the latest message
+                    })
+                    .catch(error => {
+                        console.error("Error:", error);
+                    });
+            }
+        });
+    </script>
+</body>
+
+</html>

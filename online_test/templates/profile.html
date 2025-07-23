@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Information Form</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #1a1a1a, #3b3d3d);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #000;
+            color: #0ff;
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            z-index: 10; /* Ensure header is on top */
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.6);
+            margin-bottom: 20px; /* Space below the header */
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            background: rgba(0, 255, 255, 0.3);
+            border-radius: 50%;
+            animation: floatingHeader 15s infinite alternate;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 50px rgba(0, 255, 255, 0.6);
+        }
+
+        @keyframes floatingHeader {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: linear-gradient(145deg, #222, #444);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 255, 255, 0.3);
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: formGlow 3s infinite alternate;
+        }
+
+        @keyframes formGlow {
+            0% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+            }
+            100% {
+                box-shadow: 0 0 40px rgba(0, 255, 255, 0.7);
+            }
+        }
+
+        form::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            background: rgba(0, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: floatingForm 10s infinite alternate;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+        }
+
+        @keyframes floatingForm {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+        }
+
+        form * {
+            position: relative;
+            z-index: 1;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #0ff;
+            font-size: 18px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 1px solid #0ff;
+            border-radius: 4px;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #00f;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.6);
+            outline: none;
+            transform: scale(1.02);
+        }
+
+        input[type="submit"],
+        input[type="reset"] {
+            width: 48%;
+            background: linear-gradient(45deg, #0ff, #00f);
+            color: #fff;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        input[type="reset"] {
+            background: linear-gradient(45deg, #f44336, #e53935);
+        }
+
+        input[type="submit"]:hover,
+        input[type="reset"]:hover {
+            background: linear-gradient(45deg, #00f, #0ff);
+            transform: scale(1.05);
+        }
+
+        input[type="reset"]:hover {
+            background: linear-gradient(45deg, #e53935, #f44336);
+        }
+
+        input[type="submit"]::after,
+        input[type="reset"]::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            transition: width 0.4s, height 0.4s;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+        }
+
+        input[type="submit"]:hover::after,
+        input[type="reset"]:hover::after {
+            width: 400%;
+            height: 400%;
+        }
+
+        footer {
+            background-color: #000;
+            color: #0ff;
+            text-align: center;
+            padding: 10px 0;
+            position: relative;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0, 255, 255, 0.3);
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Personal Information Form</h1>
+    </header>
+
+    <main>
+        <form method="post" action="{% url 'user:profile_save' %}">
+            {% csrf_token %}
+            <label for="fatherName">Father's Name:</label>
+            <input type="text" id="fatherName" name="father_name" placeholder="Enter your father's name" required>
+
+            <label for="motherName">Mother's Name:</label>
+            <input type="text" id="motherName" name="mother_name" placeholder="Enter your mother's name" required>
+
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="number" id="phoneNumber" name="phone" placeholder="Enter your phone number" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" required>
+
+            <input type="submit" value="Submit">
+            <input type="reset" value="Clear">
+        </form>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Personal Information Form</p>
+    </footer>
+</body>
+
+</html>
